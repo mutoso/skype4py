@@ -50,8 +50,10 @@ class APINotifier(SkypeAPINotifier):
                     o = User(skype, object_id)
                     if prop_name == 'ONLINESTATUS':
                         skype._CallEventHandler('OnlineStatus', o, str(value))
-                    elif prop_name == 'MOOD_TEXT' or prop_name == 'RICH_MOOD_TEXT':
+                    elif prop_name == 'MOOD_TEXT':
                         skype._CallEventHandler('UserMood', o, value)
+                    elif prop_name == 'RICH_MOOD_TEXT':
+                        skype._CallEventHandler('RichUserMood', o, value)
                     elif prop_name == 'RECEIVEDAUTHREQUEST':
                         skype._CallEventHandler('UserAuthorizationRequestReceived', o)
                 elif object_type == 'CALL':
@@ -1707,6 +1709,16 @@ class SkypeEvents(object):
         """
 
     def UserMood(self, User, MoodText):
+        """This event is caused by a change in the mood text of the user.
+
+        :Parameters:
+          User : `User`
+            User object.
+          MoodText : unicode
+            New mood text.
+        """
+
+    def RichUserMood(self, User, MoodText):
         """This event is caused by a change in the mood text of the user.
 
         :Parameters:
