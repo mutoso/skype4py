@@ -86,6 +86,8 @@ class APINotifier(SkypeAPINotifier):
                     o = ChatMessage(skype, object_id)
                     if prop_name == 'STATUS':
                         skype._CallEventHandler('MessageStatus', o, str(value))
+                    if prop_name == 'BODY':
+                        skype._CallEventHandler('MessageEdited', o)
                 elif object_type == 'APPLICATION':
                     o = Application(skype, object_id)
                     if prop_name == 'CONNECTING':
@@ -1584,6 +1586,10 @@ class SkypeEvents(object):
             Group object.
           Visible : bool
             Tells if the group is visible or not.
+        """
+
+    def MessageEdited(self, Message):
+        """"This event is caused by a message Edit
         """
 
     def MessageHistory(self, Username):
